@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 查找和排序
+title: 排序
 description: 二分查找、归并排序、快速排序
 published: true
 category: CS basic
@@ -11,9 +11,7 @@ category: CS basic
 
 * 归并排序
 * 快排
-* 二分查找：递归、非递归*（要求数组排序好）*
-* 二叉排序数查找
-* Hash查找：空间换时间，`O(1)`的时间复杂度
+
 
 
 ##排序算法对比
