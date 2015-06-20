@@ -91,26 +91,26 @@ Tips:
 
 画图理清思路，直接使用4个节点来看，注意边界条件，输入链表为null的判断；示例代码如下：
 
-Node* ReversedList(Node* pHead)
-{
-	if(pHead == null)
-		return null;
-
-	Node* pPre = null;
-	Node* pCur = pHead;
-	Node* pNext = null;
-
-	while(pCur->next != null)
+	Node* ReversedList(Node* pHead)
 	{
-		pNext = pCur -> next;
-		pCur->next = pPre;
-		pPre = pCur;
-		pCur = pNext;
-	}
+		if(pHead == null)
+			return null;
 
-	pCur->next = pPre;
-	return pCur;
-}
+		Node* pPre = null;
+		Node* pCur = pHead;
+		Node* pNext = null;
+
+		while(pCur->next != null)
+		{
+			pNext = pCur -> next;
+			pCur->next = pPre;
+			pPre = pCur;
+			pCur = pNext;
+		}
+
+		pCur->next = pPre;
+		return pCur;
+	}
 
 ##合并两个排序的链表
 

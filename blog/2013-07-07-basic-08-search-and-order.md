@@ -18,6 +18,7 @@ category: CS basic
 
 几种排序算法：
 
+* 选择排序
 * 插入排序
 * 冒泡排序
 * 归并排序
@@ -37,7 +38,7 @@ category: CS basic
 最优时间：`O(n^2)`，最差时间：`O(n^2)`
 
 
-![](./basic-cs/select-sort-code.png)
+![](./cs-basic/select-sort-code.png)
 
 
 ###插入排序
@@ -54,7 +55,7 @@ category: CS basic
 最优时间：`O(n^2)`，最差时间：`O(n^2)`
 
 
-![](./basic-cs/insert-sort-code.png)
+![](./cs-basic/insert-sort-code.png)
 
 ###冒泡排序
 
@@ -69,7 +70,7 @@ category: CS basic
 最优时间：`O(n^2)`，最差时间：`O(n^2)`
 
 
-![](./basic-cs/bubble-sort-code.png)
+![](./cs-basic/bubble-sort-code.png)
 
 
 ###快速排序
@@ -82,7 +83,7 @@ category: CS basic
 
 上述算法的基本思路是：分治思想，递归分为两个分区，则，时间复杂度为`O(n*log(n))`；对于已经排序好的数组，此时，快排算法的时间复杂度最差，为`O(n^2)`；特别说明，快排算法的一个关键点是如何选取`基准`，巧妙的设计能够降低时间复杂度的细数。
 
-![](./basic-cs/quick-sort-code.png)
+![](./cs-basic/quick-sort-code.png)
 
 
 ###归并算法
