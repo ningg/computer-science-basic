@@ -48,6 +48,67 @@ Tips:
 	/**/
 
 
+重写一遍上述代码，两种场景：
+
+
+###场景1：被删除的节点，不为头结点、也不为尾节点
+
+当被删除的节点，既不为`头结点`，也不为`尾节点`时，不需要知道链表的头部地址，代码如下：
+
+void deleteNode(Node* pToBeDeleted)
+{
+	if(pToBeDeleted == null)
+		return ;
+
+	Node* pNext = pToBeDeleted->next;
+
+	if(pNext == null)
+		return ;
+
+	pToBeDeleted->value = pNext->value;
+	pToBeDeleted->next = pNext->next;
+
+}
+
+###场景2：被删除的节点，可能为头结点、尾节点
+
+若需要考虑，被删除的节点为`头结点`、`尾节点`的情况，则，需要借助链表的头部地址，代码如下：
+
+	void deleteNode(Node* pHead, Node* pToBeDeleted)
+	{
+		if(pHead == null || pToBeDeleted == null)
+			return ;
+
+		if(pHead == pToBeDeleted)	// 头节点
+			pHead = pHead->next;
+
+		if(pToBeDeleted->next == null)	// 尾节点
+		{
+			Node* pCur = pHead;
+			while(pCur->next != pToBeDeleted)
+			{
+				pCur = pCur->next;
+			}
+			pCur->next = null;
+			pToBeDeleted = null;
+		}
+
+		// 既非头结点，也非尾节点
+		Node* pNext = pToBeDeleted->next;
+		pToBeDeleted->value = pNext->value;
+		pToBeDeleted->next = pNext->next;
+
+	}
+
+
+
+
+
+
+
+
+
+
 ##链表中倒数第k个节点
 
 
@@ -60,7 +121,7 @@ Tips:
 
 	Node* FindKthTotail(Node *head, int k)
 	{
-		if(head == NULL || k <= 0)
+		if(head == NULL || k <= 0)  // 边界条件
 			return NULL;
 
 		Node *pAhead = head;
@@ -69,12 +130,12 @@ Tips:
 		for(int i=0;i<k-1;i++)
 		{
 			pAhead = pAhead->next;
-			if(pAhead->next == NULL)
+			if(pAhead->next == NULL)  // 边界条件
 				return NULL;
 		   
 		}
 
-		while(pAhead->next != NULL)
+		while(pAhead->next != NULL)	// 结束条件
 		{
 			pAfter = pAfter->next;
 			pAhead = pAhead->next;
@@ -93,19 +154,20 @@ Tips:
 
 	Node* ReversedList(Node* pHead)
 	{
-		if(pHead == null)
-			return null;
+		if(pHead == null || pHead->next == null)
+			return pHead;
 
 		Node* pPre = null;
 		Node* pCur = pHead;
-		Node* pNext = null;
+		Node* pNext = pHead->next;
 
-		while(pCur->next != null)
+		while(pNext != null)
 		{
-			pNext = pCur -> next;
 			pCur->next = pPre;
 			pPre = pCur;
 			pCur = pNext;
+			pNext = pNext->next;
+
 		}
 
 		pCur->next = pPre;

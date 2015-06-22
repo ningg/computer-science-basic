@@ -14,6 +14,8 @@ category: CS basic
 
 基本思路：逐个遍历字符，并且求出字符与`0`字符之间的差值，每次数字左移一位（十进制，就是乘以10）。
 
+> 建议：下面代码，纸上重写时，使用`result`替代`num`会更有效果。
+
 	int StringToInt(char* string)
 	{
 		if(string == null)

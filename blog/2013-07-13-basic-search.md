@@ -29,31 +29,34 @@ category: CS basic
 
 	int BinSearch(int Array[], int low, int high, int key/*要找的值*/)  
 	{  
-		if (low<=high)  
-		{  
-			int mid = (low+high)/2;  
+		if (low > high)
+			return -1;
+		
+		int mid = (low+high)/2;  
 
-			if(key == Array[mid])  
-				return mid;  
-			else if(key<Array[mid])  
-				return BinSearch(Array,low,mid-1,key);  
-			else if(key>Array[mid])  
-				return BinSearch(Array,mid+1,high,key); 
+		if(key == Array[mid])  
+			return mid;  
+		else if(key<Array[mid])  
+			return BinSearch(Array,low,mid-1,key);  
+		else if(key>Array[mid])  
+			return BinSearch(Array,mid+1,high,key); 
  
-		}  
-		else  
-			return -1;  
 	}  
 
+Tips：
+
+> 递归方式，基本思路：自顶向下，从后向前，迭代递归到收敛条件。
 
 ###非递归方式
 
 示例代码如下：
 
-	int BinSearch(int Array[],int SizeOfArray,int key/*要找的值*/)  
+	int BinSearch(int Array[], int low, int high, int key/*要找的值*/)  
 	{  
-		int low=0;
-		int high=Array.length;  
+		
+		if(low > high)  // 异常
+			return -1;
+		
 		int mid;  
 
 		while (low<=high)  

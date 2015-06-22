@@ -85,6 +85,67 @@ category: CS basic
 
 ![](./cs-basic/quick-sort-code.png)
 
+Tips：
+
+> 参考例子，描述清楚过程：[坐在马桶上看算法：快速排序]
+
+要点：
+
+* 选取的基准为`首元素`
+* 两个指针，`i`从头、`j`从尾
+* 由于选用的是`首元素`，则，从尾部`j`开始移动
+* 如果尾部`j`发现小于`首元素`的内容，则，移动`i`，等到`i`定位到大于`首元素`的内容时，交换`i`和`j`的内容
+* 当`i == j`，即，两个指针相遇时，交换`首元素`与`i`对应位置的内容
+* 以`i`对应下标为分割，分别对两个子数组，进行递归排序
+
+示例代码：
+
+	void Quick_Sort(int[] a, int n){
+
+		quicksort(a, 0, n-1);
+	}
+
+
+	void quicksort(int[] a, int left,int right) 
+	{ 
+		if(left>right) 
+		   return; 
+									
+		int temp=a[left]; //temp中存的就是基准数 
+		
+		int i=left; 
+		int j=right; 
+		
+		while(i!=j) 
+		{ 
+		   //顺序很重要，要先从右边开始找 
+		   while(a[j]>=temp && i<j) 
+					j--; 
+
+		   //再找右边的 
+		   while(a[i]<=temp && i<j) 
+					i++; 
+
+		   //交换两个数在数组中的位置 
+		   if(i<j) 
+		   { 
+			  int t=a[i]; 
+			  a[i]=a[j]; 
+			  a[j]=t; 
+		   } 
+
+		} 
+
+		//最终将基准数归位 
+		a[left]=a[i]; 
+		a[i]=temp; 
+								 
+		quicksort(a, left,i-1);//继续处理左边的，这里是一个递归的过程 
+		quicksort(a, i+1,right);//继续处理右边的 ，这里是一个递归的过程 
+
+	}
+
+
 
 ###归并算法
 
@@ -99,6 +160,66 @@ category: CS basic
 最优时间：`O(nlgn)`，最差时间：`O(nlgn)`
 
 ![](./cs-basic/merge-sort-code.png)
+
+
+归并排序的示例代码：
+
+	void MergeSort(int[] x, int n){
+		M_Sort(x, 0, n - 1);
+	}
+
+	void M_Sort(int[] x, int left, int right){//the real MergeSort
+	   
+		if( left >= right )
+		    return;
+
+		int middle = ( right + left ) / 2;
+
+		M_Sort(x, left, middle);
+		M_Sort(x, middle + 1, right);
+		
+		//Merge
+		int[] temp = new int[right - left + 1];
+
+		int i = left;
+		int j = middle + 1;
+		int k = 0;
+
+		while ( i <= middle && j <= right ){
+			if ( x[i] <= x[j] ){
+				temp[k] = x[i];
+				i++;
+			}
+			else{
+				temp[k] = x[j];
+				j++;
+			}
+			k++;
+		}
+
+		/*若左边的序列都已在正确的位置上，则右边的序列也就在正确的位置上了，不需变化
+		  若右边的序列都已在正确的位置上，则需要把左边序列中剩余的部分移至序列的最后*/
+		if ( j > right ){
+			for ( ;  i <= middle; i++ ){
+				temp[k] = x[i];
+				k++;
+			}
+		}
+
+		if ( i > middle ){
+			for ( ; j <= right; j++){
+				temp[k] = x[j];
+				k++;
+			}
+		}
+
+		//将temp复制回x
+		for ( int t = 0; t < k; t++ ){
+			x[left + t] = temp[t];
+		}
+
+	}
+
 
 
 ###堆排序
@@ -159,7 +280,7 @@ category: CS basic
 
 * [视觉直观感受的7种常用的排序算法][视觉直观感受的7种常用的排序算法]
 * [九大排序算法再总结][九大排序算法再总结]
-
+* [坐在马桶上看算法：快速排序][坐在马桶上看算法：快速排序]
 
 
 
@@ -175,7 +296,7 @@ category: CS basic
 
 [九大排序算法再总结]:						http://blog.csdn.net/xiazdong/article/details/8462393
 [视觉直观感受的7种常用的排序算法]:			http://blog.jobbole.com/11745/
-
+[坐在马桶上看算法：快速排序]:				http://developer.51cto.com/art/201403/430986.htm
 
 
 
