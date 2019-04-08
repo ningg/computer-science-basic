@@ -11,7 +11,7 @@ category: CS basic
 
 
 
-##忽略边界
+## 忽略边界
 
 示例：
 
@@ -25,7 +25,7 @@ category: CS basic
 		  return result;  
 	}  
 
-##考虑边界，同时高效
+## 考虑边界，同时高效
 
 
 更好的解法是基于下面的想法：
@@ -67,7 +67,7 @@ category: CS basic
 
 
 
-##参考来源
+## 参考来源
 
 * [求某个数的整数次方][求某个数的整数次方]
 
@@ -80,14 +80,4 @@ category: CS basic
 
 
 [NingG]:    http://ningg.github.com  "NingG"
-
-
 [求某个数的整数次方]:			http://blog.csdn.net/xianliti/article/details/5639606
-
-
-
-
-
-
-
-
