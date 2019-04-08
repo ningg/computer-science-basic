@@ -6,52 +6,55 @@ published: true
 category: CS basic
 ---
 
-##删除链表节点
+## 删除链表节点
 
 Tips:
 
 > 注意边界条件的判断，当删除的节点是head、或者尾节点时，类似临界条件需要单独考虑。
 
 
-	
-	void DeleteNode(ListNode **pListHead,ListNode * pToBeDeleted)  
-	{  
-		if(!pListHead || !pToBeDeleted)  
-			return;  
-		//要删除的结点不是尾结点  
-		if(pToBeDeleted->m_pNext!=NULL)  
-		{  
-			ListNode * pNext=pToBeDeleted->m_pNext;  
-			pToBeDeleted->m_nValue=pNext->m_nValue;  
-			pToBeDeleted->m_pNext=pNext->m_pNext;  
-			delete pNext;  
-			pNext=NULL;  
-		}  
-		//链表只有一个结点，删除头结点，也是尾结点  
-		else if(*pListHead == pToBeDeleted)  
-		{  
-			delete pToBeDeleted;  
-			pToBeDeleted=NULL;  
-			*pListHead=NULL;  
-		}  
-		//链表中有多个结点，删除尾结点  
-		else  
-		{  
-			ListNode *pNode=*pListHead;  
-			while(pNode->m_pNext!=pToBeDeleted)  
-				pNode=pNode->m_pNext;  
-			pNode->m_pNext=NULL;  
-			delete pToBeDeleted;  
-			pToBeDeleted=NULL;  
-		}  
-	}  
-	/**/
+    /**
+     * 删除指定节点
+     *
+     * @param pHead 链表的头节点
+     * @param toBeRemoved 需要被删除的节点
+     */
+    public static void removeNode(Node pHead, Node toBeRemoved) {
+        // 1. 边界判断
+        if (null == pHead || null == toBeRemoved) {
+            return;
+        }
+
+        // 2. 删除节点
+        // a. 头部节点: 直接指向「下一个节点」
+        // note: 需要借助「头节点」
+        if (pHead == toBeRemoved) {
+            pHead = pHead.next;
+            return;
+        }
+
+        // b. 尾部节点: 从前遍历, 到倒数第二个节点, 然后, 删除最后一个
+        // note: 需要借助「头节点」
+        if (toBeRemoved.next == null) {
+            Node pCurr = pHead;
+            while (pCurr.next != toBeRemoved) {
+                pCurr = pCurr.next;
+            }
+            pCurr.next = null;
+            return;
+        }
+
+        // c. 中间节点: 非头部、非尾部节点
+        // note: 不需要借助「头结点」
+        toBeRemoved.value = toBeRemoved.next.value;
+        toBeRemoved.next = toBeRemoved.next.next;
+    }
 
 
 重写一遍上述代码，两种场景：
 
 
-###场景1：被删除的节点，不为头结点、也不为尾节点
+### 场景1：被删除的节点，不为头结点、也不为尾节点
 
 当被删除的节点，既不为`头结点`，也不为`尾节点`时，不需要知道链表的头部地址，代码如下：
 
@@ -70,84 +73,97 @@ void deleteNode(Node* pToBeDeleted)
 
 }
 
-###场景2：被删除的节点，可能为头结点、尾节点
+### 场景2：被删除的节点，可能为头结点、尾节点
 
 若需要考虑，被删除的节点为`头结点`、`尾节点`的情况，则，需要借助链表的头部地址，代码如下：
 
-	void deleteNode(Node* pHead, Node* pToBeDeleted)
-	{
-		if(pHead == null || pToBeDeleted == null)
-			return ;
+    /**
+     * 删除指定节点
+     *
+     * @param pHead 链表的头节点
+     * @param toBeRemoved 需要被删除的节点
+     */
+    public static void removeNode(Node pHead, Node toBeRemoved) {
+        // 1. 边界判断
+        if (null == pHead || null == toBeRemoved) {
+            return;
+        }
 
-		if(pHead == pToBeDeleted)	// 头节点
-			pHead = pHead->next;
+        // 2. 删除节点
+        // a. 头部节点: 直接指向「下一个节点」
+        // note: 需要借助「头节点」
+        if (pHead == toBeRemoved) {
+            pHead = pHead.next;
+            return;
+        }
 
-		if(pToBeDeleted->next == null)	// 尾节点
-		{
-			Node* pCur = pHead;
-			while(pCur->next != pToBeDeleted)
-			{
-				pCur = pCur->next;
-			}
-			pCur->next = null;
-			pToBeDeleted = null;
-		}
+        // b. 尾部节点: 从前遍历, 到倒数第二个节点, 然后, 删除最后一个
+        // note: 需要借助「头节点」
+        if (toBeRemoved.next == null) {
+            Node pCurr = pHead;
+            while (pCurr.next != toBeRemoved) {
+                pCurr = pCurr.next;
+            }
+            pCurr.next = null;
+            return;
+        }
 
-		// 既非头结点，也非尾节点
-		Node* pNext = pToBeDeleted->next;
-		pToBeDeleted->value = pNext->value;
-		pToBeDeleted->next = pNext->next;
-
-	}
-
-
-
-
-
-
+        // c. 中间节点: 非头部、非尾部节点
+        // note: 不需要借助「头结点」
+        toBeRemoved.value = toBeRemoved.next.value;
+        toBeRemoved.next = toBeRemoved.next.next;
+    }
 
 
 
 
-##链表中倒数第k个节点
+
+## 链表中倒数第k个节点
 
 
 Tips:
 
 > 注意边界条件的判断，链表为空，k小于等于0，链表长度小于k。
 
-思路：设定两个指针，间隔为k-1，当第一个指针到达链表末端时，第二个指针即指向倒数第k个节点。
+思路：设定两个指针，间隔为 k，当第一个指针到达链表末端 null 时，第二个指针即指向倒数第k个节点。
 
 
-	Node* FindKthTotail(Node *head, int k)
-	{
-		if(head == NULL || k <= 0)  // 边界条件
-			return NULL;
+    /**
+     * 找出链表中, 倒数第 k 个节点
+     *
+     * @param head 链表头指针
+     * @param k 倒数第 k 个节点
+     * @return 找到的目标节点
+     */
+    public static Node findKthToTail(Node head, int k) {
+        // 1. 边界判断
+        if (null == head || k <= 0) {
+            return null;
+        }
 
-		Node *pAhead = head;
-		Node *pAfter = head;
+        // 2. 寻找 k-th 节点
+        // a. 两个指针, 一个先走(相聚 k 个节点)
+        Node former = head;
+        Node latter = head;
+        for (int i = 1; i <= k; i++) {
+            if (null != former) {
+                former = former.next;
+            } else {
+                return null;
+            }
+        }
 
-		for(int i=0;i<k-1;i++)
-		{
-			pAhead = pAhead->next;
-			if(pAhead->next == NULL)  // 边界条件
-				return NULL;
-		   
-		}
-
-		while(pAhead->next != NULL)	// 结束条件
-		{
-			pAfter = pAfter->next;
-			pAhead = pAhead->next;
-			
-		}
-
-		return pAfter;
-	}
-
+        // b. 先走的节点, 走到 null, 则, 说明后走的节点,
+        while (null != former) {
+            former = former.next;
+            latter = latter.next;
+        }
+        return latter;
+    }
 
 
-##反转链表
+
+## 反转链表
 
 
 画图理清思路，直接使用4个节点来看，注意边界条件，输入链表为null的判断；示例代码如下：
@@ -174,7 +190,7 @@ Tips:
 		return pCur;
 	}
 
-##合并两个排序的链表
+## 合并两个排序的链表
 
 
 非递归方法：
@@ -266,11 +282,13 @@ Tips:
 参考：[面试题15：合并两个排序的链表][面试题15：合并两个排序的链表]
 
 
-##链表排序
+## 链表排序
 
-直接使用冒泡排序即可，哈哈；
+本质: 归并方法, 进行链表排序
 
-
+1. 拆分: 拆分出 2 个链表(找出中间节点, 拆分链表)
+2. 排序: 递归对 2 个链表排序
+3. 合并: 2 个有序链表, 排序
 
 
 
