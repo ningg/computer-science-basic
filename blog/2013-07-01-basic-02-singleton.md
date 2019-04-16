@@ -54,7 +54,8 @@ category: CS basic
 		
 		private static Singleton singleton = new Singleton();
 		
-		public static synchronized Singleton getInstance(){
+		// 不存在「线程安全」问题
+		public static Singleton getInstance(){
 			return singleton;
 		}
 	}
@@ -76,6 +77,7 @@ category: CS basic
 
 		private static Singleton singleton = null;
 		
+		// 存在「线程安全」问题
 		public static synchronized Singleton getInstance(){
 			if(singleton == null){
 				singleton = new Singleton();
